@@ -1,0 +1,290 @@
+/* ---------- 设计变量 ---------- */
+/* 用 html:root 提升权重：Element Plus 会在之后注入自己的 :root 变量，权重相同时会覆盖我们 */
+html:root {
+  color-scheme: light;
+
+  --ink: #1b2a46;
+  --ink-soft: #3c4c6b;
+  /* 对比度按 WCAG AA 调整：在 --paper / --surface 上都达到 4.5:1 以上 */
+  --muted: #5a6a85;
+  --paper: #f3f5fa;
+  --surface: #ffffff;
+  --line: #e2e7f0;
+  --line-strong: #cbd4e4;
+
+  --airmail-red: #c6473f;
+  --airmail-blue: #2e4e9e;
+  --stamp-red: #b84a42;
+  --stamp-green: #2f7d5b;
+  --stamp-amber: #a9761f;
+
+  --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB',
+    'Microsoft YaHei UI', 'Microsoft YaHei', 'Noto Sans SC', sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, 'SF Mono', 'Cascadia Mono', 'JetBrains Mono', Consolas,
+    'Noto Sans Mono CJK SC', monospace;
+
+  /* Element Plus 主题（品牌色会在运行时被 config.ts 覆盖） */
+  --el-color-primary: #2e4e9e;
+  --el-color-primary-light-3: #6d83bb;
+  --el-color-primary-light-5: #97a7cf;
+  --el-color-primary-light-7: #c0cae2;
+  --el-color-primary-light-8: #d5dcec;
+  --el-color-primary-light-9: #eaedf5;
+  --el-color-primary-dark-2: #253e7e;
+  --el-color-success: #2f7d5b;
+  --el-color-warning: #8a5d12;
+  /* 危险色加深：danger 描边按钮的文字要满足 4.5:1 对比度 */
+  --el-color-danger: #9e3b33;
+  /* info 色用于字数统计、来源标签等，默认浅灰对比度不足 */
+  --el-color-info: #667085;
+  --el-border-radius-base: 6px;
+  --el-font-family: var(--font-sans);
+  --el-text-color-primary: var(--ink);
+  --el-text-color-regular: var(--ink-soft);
+  /* 占位符同样要满足对比度，默认的浅灰只有 2.3:1 */
+  --el-text-color-placeholder: #667085;
+  /* 次级文字（字数统计等）同样加深 */
+  --el-text-color-secondary: #667085;
+  --el-border-color: var(--line);
+  --el-border-color-light: var(--line);
+  --el-border-color-lighter: var(--line);
+}
+
+/* ---------- 基础 ---------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#app {
+  min-height: 100vh;
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: var(--el-color-primary);
+  text-decoration: none;
+}
+
+:focus-visible {
+  outline: 2px solid var(--el-color-primary);
+  outline-offset: 2px;
+}
+
+/* ---------- 通用版式 ---------- */
+.panel {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  box-shadow: 0 1px 2px rgba(27, 42, 70, 0.04);
+}
+
+.page-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 18px;
+}
+
+.page-title {
+  margin: 0;
+  font-size: 21px;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  line-height: 1.3;
+}
+
+.page-desc {
+  margin: 4px 0 0;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.toolbar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 14px;
+}
+
+.mono {
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.01em;
+}
+
+.muted {
+  color: var(--muted);
+}
+
+/* 邮政风：空状态提示 */
+.empty-hint {
+  padding: 48px 16px;
+  text-align: center;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+/* 航空邮件红蓝边条：全站唯一的装饰性签名元素 */
+.airmail-stripe {
+  height: 6px;
+  background: repeating-linear-gradient(
+    -45deg,
+    var(--airmail-red) 0 10px,
+    #fafbfd 10px 20px,
+    var(--airmail-blue) 20px 30px,
+    #fafbfd 30px 40px
+  );
+}
+
+/* 橡皮图章：状态标记 */
+.stamp {
+  display: inline-flex;
+  align-items: center;
+  padding: 1px 8px 2px;
+  border: 1.5px solid currentColor;
+  border-radius: 5px;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.6;
+  white-space: nowrap;
+  transform: rotate(-1.5deg);
+}
+
+.stamp--amber {
+  color: var(--stamp-amber);
+}
+
+.stamp--blue {
+  color: var(--airmail-blue);
+}
+
+.stamp--ink {
+  color: var(--ink);
+}
+
+.stamp--green {
+  color: var(--stamp-green);
+}
+
+.stamp--red {
+  color: var(--stamp-red);
+}
+
+/* ---------- 锁屏 / 初始化 ---------- */
+.auth-screen {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 16px;
+  background:
+    radial-gradient(1100px 520px at 50% -180px, rgba(46, 78, 158, 0.1), transparent 70%),
+    var(--paper);
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 468px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 28px 64px -36px rgba(27, 42, 70, 0.45);
+}
+
+.auth-card__body {
+  padding: 30px 32px 32px;
+}
+
+.auth-brand {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+
+.auth-brand__name {
+  font-size: 25px;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  line-height: 1.2;
+}
+
+.auth-brand__en {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.2em;
+  color: var(--muted);
+}
+
+.auth-tagline {
+  margin: 6px 0 0;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.auth-footer {
+  margin: 14px 4px 0;
+  text-align: center;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+/* ---------- Element Plus 细节调整 ---------- */
+/* 提示框文字用正文色：提高权重覆盖 Element Plus 自带的浅色文字 */
+.el-alert.is-light .el-alert__title {
+  color: var(--ink);
+}
+
+.el-alert.is-light .el-alert__description,
+.el-alert.is-light .el-alert__description p,
+.el-alert.is-light .el-alert__description strong {
+  color: var(--ink-soft);
+}
+
+.el-table {
+  --el-table-border-color: var(--line);
+  --el-table-header-bg-color: #f8fafd;
+  --el-table-header-text-color: var(--muted);
+  --el-table-row-hover-bg-color: #f6f8fc;
+}
+
+.el-table th.el-table__cell {
+  font-weight: 600;
+  font-size: 12.5px;
+}
+
+.el-dialog,
+.el-message-box {
+  border-radius: 14px;
+}
+
+.el-button {
+  font-weight: 500;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
